@@ -50,12 +50,24 @@ st.line_chart(sales_over_time.rename(columns={'Order Date': 'index'}).set_index(
 # Correlation heatmap
 st.subheader("Correlation Heatmap")
 
-plt.figure(figsize=(12, 6))
-numeric_data = data.select_dtypes(include=['int64', 'float64'])
+plt.figure(figsize=(14, 10))  
+
+numeric_data = data.select_dtypes(include=[np.number])
 corr_matrix = numeric_data.corr()
 
-sns.heatmap(corr_matrix, annot=True, cmap='coolwarm')
-plt.title('Correlation Heatmap')
+sns.heatmap(
+    corr_matrix,
+    annot=True,
+    fmt=".2f",
+    cmap="coolwarm",
+    square=True,
+    linewidths=0.5,
+    cbar_kws={"shrink": 0.8}  
+)
+
+plt.title("Full Correlation Heatmap", fontsize=16, pad=20)
+plt.xticks(rotation=45, ha='right')  
+plt.yticks(rotation=0)              
 
 st.pyplot(plt)
 
