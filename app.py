@@ -50,28 +50,20 @@ st.line_chart(sales_over_time.rename(columns={'Order Date': 'index'}).set_index(
 # Correlation heatmap
 st.subheader("Correlation Heatmap")
 
-encoded_data = data.copy()
+plt.figure(figsize=(12, 6))
 
-# Encode all categoricals like in training
-categorical_cols = ['Category', 'Sub Category', 'Region', 'City', 'State']
-encoded_data = pd.get_dummies(encoded_data, columns=categorical_cols, drop_first=True)
-
-# Now select only numeric columns
-numeric_data = encoded_data.select_dtypes(include=[np.number])
+numeric_data = data.select_dtypes(include=['int64', 'float64'])
 corr_matrix = numeric_data.corr()
 
-plt.figure(figsize=(16, 12))  
 sns.heatmap(
     corr_matrix,
-    annot=False,     
-    cmap='coolwarm',
-    linewidths=0.5
+    annot=True,
+    fmt=".2f",
+    cmap='coolwarm'
 )
-plt.title("Correlation Heatmap (Encoded Features)", fontsize=18)
-plt.xticks(rotation=45, ha='right')
-plt.yticks(rotation=0)
-st.pyplot(plt)
 
+plt.title('Correlation Heatmap', fontsize=16)
+st.pyplot(plt)
 
 # Actual vs Predicted scatter plot (static from your model)
 st.subheader("Predicted vs Actual Sales (Test Data)")
