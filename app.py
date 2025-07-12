@@ -14,6 +14,7 @@ data = pd.read_csv("Supermart Grocery Sales - Retail Analytics Dataset.csv")
 # Load your trained Linear Regression & scaler
 model = joblib.load("linear_model.pkl")
 scaler = joblib.load("scaler.pkl")
+model_columns = joblib.load("model_columns.pkl")
 
 
 # Dashboard title
