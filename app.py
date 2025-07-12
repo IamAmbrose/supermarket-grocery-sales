@@ -68,7 +68,9 @@ target = data['Sales']
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.2, random_state=42)
+X_test = X_test.reindex(columns=model_columns, fill_value=0)
 X_test_scaled = scaler.transform(X_test)
+
 
 y_pred_log = model.predict(X_test_scaled)
 y_pred = np.expm1(y_pred_log)
@@ -107,6 +109,7 @@ X_input = pd.DataFrame({
 })
 
 # Scale
+X_input = X_input.reindex(columns=model_columns, fill_value=0)
 X_input_scaled = scaler.transform(X_input)
 
 # Predict
