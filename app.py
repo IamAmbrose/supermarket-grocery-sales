@@ -8,19 +8,15 @@ import matplotlib.pyplot as plt
 import joblib
 import io
 
-# --------------------------
 # Load data & model
-# --------------------------
-# Replace with your file path
 data = pd.read_csv("Supermart Grocery Sales - Retail Analyticts Dataset.csv")
 
 # Load your trained Linear Regression & scaler
 model = joblib.load("linear_model.pkl")
 scaler = joblib.load("scaler.pkl")
 
-# --------------------------
+
 # Dashboard title
-# --------------------------
 st.title("🛒 Supermart Grocery Sales — Interactive Dashboard")
 
 st.markdown("""
@@ -28,9 +24,7 @@ Welcome!
 Explore the data, see trends, check correlations — and predict new sales!
 """)
 
-# --------------------------
-# 1️⃣ Key metrics
-# --------------------------
+# Key metrics
 st.subheader("Key Metrics")
 
 col1, col2, col3 = st.columns(3)
@@ -43,9 +37,7 @@ col1.metric("💰 Total Sales", f"${total_sales:,.2f}")
 col2.metric("📈 Total Profit", f"${total_profit:,.2f}")
 col3.metric("🏷️ Average Discount", f"{avg_discount:.2%}")
 
-# --------------------------
-# 2️⃣ Sales over time
-# --------------------------
+# Sales over time
 st.subheader("Sales Over Time")
 
 data['Order Date'] = pd.to_datetime(data['Order Date'], errors='coerce')
@@ -54,9 +46,7 @@ sales_over_time['Order Date'] = sales_over_time['Order Date'].dt.to_timestamp()
 
 st.line_chart(sales_over_time.rename(columns={'Order Date': 'index'}).set_index('index'))
 
-# --------------------------
-# 3️⃣ Correlation heatmap
-# --------------------------
+# Correlation heatmap
 st.subheader("Correlation Heatmap")
 
 numeric_cols = ['Sales', 'Profit', 'Discount']
@@ -66,13 +56,10 @@ fig, ax = plt.subplots()
 sns.heatmap(corr, annot=True, cmap='coolwarm', ax=ax)
 st.pyplot(fig)
 
-# --------------------------
-# 4️⃣ Actual vs Predicted scatter plot (static from your model)
-# --------------------------
+# Actual vs Predicted scatter plot (static from your model)
 st.subheader("Predicted vs Actual Sales (Test Data)")
 
 # For demonstration, simulate test split
-# Replace with your X_test, y_test if you saved them!
 features = data.drop(columns=['Order ID', 'Customer Name', 'Order Date', 'Sales'])
 target = data['Sales']
 
@@ -94,9 +81,7 @@ ax2.plot([results['Actual'].min(), results['Actual'].max()],
 ax2.set_title("Actual vs Predicted Sales")
 st.pyplot(fig2)
 
-# --------------------------
-# 5️⃣ Make a new prediction!
-# --------------------------
+# Make a new prediction!
 st.subheader("🔍 Predict New Sales")
 
 category = st.selectbox("Category", ["Furniture", "Technology", "Office Supplies"])
@@ -127,5 +112,5 @@ X_input_scaled = scaler.transform(X_input)
 if st.button("Predict Sales"):
     y_pred_log = model.predict(X_input_scaled)
     y_pred = np.expm1(y_pred_log)
-    st.success(f"✅ **Predicted Sales: ${y_pred[0]:,.2f}**")
+    st.success(f" **Predicted Sales: ${y_pred[0]:,.2f}**")
 
