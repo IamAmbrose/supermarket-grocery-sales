@@ -50,11 +50,13 @@ st.line_chart(sales_over_time.rename(columns={'Order Date': 'index'}).set_index(
 # Correlation heatmap
 st.subheader("Correlation Heatmap")
 
-numeric_cols = ['Sales', 'Profit', 'Discount']
-corr = data[numeric_cols].corr()
+numeric_data = data.select_dtypes(include=['int64', 'float64'])
+corr_matrix = numeric_data.corr()
 
-fig, ax = plt.subplots()
-sns.heatmap(corr, annot=True, cmap='coolwarm', ax=ax)
+fig, ax = plt.subplots(figsize=(12, 6))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', ax=ax)
+ax.set_title('Correlation Heatmap')
+
 st.pyplot(fig)
 
 # Actual vs Predicted scatter plot (static from your model)
