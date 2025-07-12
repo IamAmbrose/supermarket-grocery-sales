@@ -9,7 +9,7 @@ import joblib
 import io
 
 # Load data & model
-data = pd.read_csv("Supermart Grocery Sales - Retail Analyticts Dataset.csv")
+data = pd.read_csv("Supermart Grocery Sales - Retail Analytics Dataset.csv")
 
 # Load your trained Linear Regression & scaler
 model = joblib.load("linear_model.pkl")
