@@ -3,7 +3,11 @@
 This project builds and evaluates machine learning models to **predict supermarket grocery sales** using real-world retail transaction data.  
 The goal is to create a **reliable baseline prediction pipeline** for future sales forecasting, inventory planning, and business insights.
 
+👉 [**View Live Dashboard here**](https://supermarket-grocery-sales-48svgo6oj5mlzwxtjjnarc.streamlit.app/)
+
+
 ---
+
 
 ## 📌 **Project Objective**
 
