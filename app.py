@@ -12,7 +12,7 @@ import io
 # Load data & model
 # --------------------------
 # Replace with your file path
-data = pd.read_csv("Supermart_Grocery_Sales.csv")
+data = pd.read_csv("Supermart Grocery Sales - Retail Analyticts Dataset.csv")
 
 # Load your trained Linear Regression & scaler
 model = joblib.load("linear_model.pkl")
